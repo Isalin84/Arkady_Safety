@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-wine: 157 51 57;
+    --brand-wine-dark: 69 13 27;
+    --brand-peach: 247 209 170;
+    --brand-terracotta: 148 91 74;
+    --brand-cream: 244 229 203;
+    --brand-mint: 165 215 171;
+    --brand-sky: 198 220 252;
+    --brand-gray: 234 234 234;
+    --brand-forest: 30 75 46;
+    --brand-teal: 25 66 69;
+    --brand-charcoal: 66 66 66;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body text-brand-charcoal bg-brand-cream antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-wide;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-brand
+           bg-brand-wine text-white font-body font-bold text-base
+           transition-all duration-200 hover:bg-brand-wine-dark
+           focus:outline-none focus:ring-2 focus:ring-brand-wine focus:ring-offset-2
+           min-h-[44px] min-w-[44px];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-brand
+           bg-brand-forest text-white font-body font-bold text-base
+           transition-all duration-200 hover:bg-brand-teal
+           focus:outline-none focus:ring-2 focus:ring-brand-forest focus:ring-offset-2
+           min-h-[44px] min-w-[44px];
+  }
+
+  .card {
+    @apply bg-white rounded-brand p-4 shadow-md
+           transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  .section-title {
+    @apply font-heading text-3xl md:text-4xl text-brand-wine-dark mb-4;
+  }
+
+  .section-subtitle {
+    @apply font-body text-lg text-brand-charcoal mb-6;
+  }
+}
+
+@layer utilities {
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
