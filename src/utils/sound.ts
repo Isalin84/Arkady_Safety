@@ -1,11 +1,12 @@
 import { getMuteState } from './storage'
+import { getAssetPath } from './assetPath'
 
-// Звуковые файлы (будут в src/assets/audio/)
+// Звуковые файлы (в public/audio/)
 const SOUNDS = {
-  click: '/audio/click.mp3',
-  success: '/audio/success.mp3',
-  error: '/audio/error.mp3',
-  hint: '/audio/hint.mp3',
+  click: getAssetPath('audio/click.mp3'),
+  success: getAssetPath('audio/success.mp3'),
+  error: getAssetPath('audio/error.mp3'),
+  hint: getAssetPath('audio/hint.mp3'),
 } as const
 
 type SoundType = keyof typeof SOUNDS

@@ -3,6 +3,7 @@ import { Eye, CheckCircle2, HelpCircle, X, Move, Copy, Check } from 'lucide-reac
 import { cn } from '@/utils/cn'
 import { playClick, playSuccess, playHint } from '@/utils/sound'
 import { getHazardState, setHazardState, type HazardState } from '@/utils/storage'
+import { getAssetPath } from '@/utils/assetPath'
 import { ScrollReveal } from './ui'
 
 interface Hotspot {
@@ -252,7 +253,7 @@ export default function HazardSpotting({ data }: HazardSpottingProps) {
           >
             <div className="aspect-video bg-gradient-to-br from-brand-gray to-brand-charcoal/20 relative select-none">
               <img
-                src={data.image}
+                src={getAssetPath(data.image)}
                 alt="Производственная зона — найдите опасности"
                 className="w-full h-full object-cover pointer-events-none"
                 draggable={false}

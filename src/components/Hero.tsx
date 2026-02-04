@@ -1,13 +1,14 @@
 import { cn } from '@/utils/cn'
 import { playClick } from '@/utils/sound'
 import { useIsMobile, useReducedMotion } from '@/utils/isMobile'
+import { getAssetPath } from '@/utils/assetPath'
 import { Aurora, SplitText, Magnet } from './ui'
 
 // TODO: Заменить на локальный файл после скачивания
 // Промпт для генерации аватара Аркадия:
 // "Friendly male brewery shift supervisor character, simple cartoon style, warm colors, 
 // wearing safety vest and hard hat, confident pose, transparent background, PNG"
-const ARKADY_IMAGE = '/images/arkady.png'
+const ARKADY_IMAGE = getAssetPath('images/arkady.png')
 
 interface HeroProps {
   data: {

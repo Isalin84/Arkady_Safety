@@ -3,6 +3,7 @@ import { Award, Download, X, Trophy } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { playClick, playSuccess } from '@/utils/sound'
 import { calculateScore, type ScoreResult } from '@/utils/scoring'
+import { getAssetPath } from '@/utils/assetPath'
 import { CountUp, GradientText, ScrollReveal } from './ui'
 
 // Certificate dimensions
@@ -10,7 +11,7 @@ const CERT_WIDTH = 1600
 const CERT_HEIGHT = 900
 
 // Optional background image (place in public/images/)
-const CERT_BG_IMAGE = '/images/certificate-bg.png'
+const CERT_BG_IMAGE = getAssetPath('images/certificate-bg.png')
 
 export default function ResultsCertificate() {
   const [isOpen, setIsOpen] = useState(false)
