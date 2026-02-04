@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { cn } from '@/utils/cn'
 import { playClick } from '@/utils/sound'
-import { getSeasonState, setSeasonState, type Season } from '@/utils/storage'
+import { getSeasonState, setSeasonState, markExploreOpened, markExploreSeasonSelected, type Season } from '@/utils/storage'
 import content from '@/data/content.json'
 
 interface SafeStartState {
@@ -39,11 +39,18 @@ export default function WinterModule({ data }: WinterModuleProps) {
     playClick()
     setSelectedSeason(season)
     setSeasonState(season)
+    // Track selected season for scoring
+    markExploreSeasonSelected(season)
   }
 
   const toggleState = (id: string) => {
     playClick()
-    setExpandedState(expandedState === id ? null : id)
+    const wasExpanded = expandedState === id
+    setExpandedState(wasExpanded ? null : id)
+    // Track opened Safe Start state for scoring (only when opening)
+    if (!wasExpanded) {
+      markExploreOpened('safeStartStates', id)
+    }
   }
 
   const currentScenario = winterScenarios[selectedSeason]

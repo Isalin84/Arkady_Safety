@@ -4,6 +4,7 @@ const KEYS = {
   CHECKLIST: 'stf_checklist_state',
   QUIZ: 'stf_quiz_state',
   HAZARD: 'stf_hazard_state',
+  EXPLORE: 'stf_explore_state',
   SEASON: 'stf_season',
   LAST_VISIT: 'stf_last_visit',
 } as const
@@ -65,6 +66,67 @@ export function getHazardState(): HazardState | null {
 
 export function setHazardState(state: HazardState): void {
   localStorage.setItem(KEYS.HAZARD, JSON.stringify(state))
+}
+
+// Explore/interactions state (opened/visited items)
+export interface ExploreState {
+  arkadyHabits: string[]
+  risks: string[]
+  controls: string[]
+  safeStartStates: string[]
+  seasons: Season[]
+}
+
+const DEFAULT_EXPLORE_STATE: ExploreState = {
+  arkadyHabits: [],
+  risks: [],
+  controls: [],
+  safeStartStates: [],
+  seasons: [],
+}
+
+export function getExploreState(): ExploreState {
+  const value = localStorage.getItem(KEYS.EXPLORE)
+  if (!value) return DEFAULT_EXPLORE_STATE
+  try {
+    const parsed = JSON.parse(value) as Partial<ExploreState>
+    return {
+      arkadyHabits: Array.isArray(parsed.arkadyHabits) ? parsed.arkadyHabits : [],
+      risks: Array.isArray(parsed.risks) ? parsed.risks : [],
+      controls: Array.isArray(parsed.controls) ? parsed.controls : [],
+      safeStartStates: Array.isArray(parsed.safeStartStates) ? parsed.safeStartStates : [],
+      seasons: Array.isArray(parsed.seasons) ? (parsed.seasons as Season[]) : [],
+    }
+  } catch {
+    return DEFAULT_EXPLORE_STATE
+  }
+}
+
+export function setExploreState(state: ExploreState): void {
+  localStorage.setItem(KEYS.EXPLORE, JSON.stringify(state))
+}
+
+function addUnique<T>(arr: T[], value: T): T[] {
+  return arr.includes(value) ? arr : [...arr, value]
+}
+
+export function markExploreOpened(
+  kind: 'arkadyHabits' | 'risks' | 'controls' | 'safeStartStates',
+  id: string
+): void {
+  const current = getExploreState()
+  setExploreState({
+    ...current,
+    [kind]: addUnique(current[kind], id),
+  } as ExploreState)
+}
+
+export function markExploreSeasonSelected(season: Season): void {
+  const current = getExploreState()
+  setExploreState({
+    ...current,
+    seasons: addUnique(current.seasons, season),
+  })
 }
 
 // Season selection

@@ -259,14 +259,6 @@ export default function HazardSpotting({ data }: HazardSpottingProps) {
                 }}
               />
               
-              {/* Placeholder overlay - hide when image loads */}
-              <div className="absolute inset-0 flex items-center justify-center text-brand-charcoal/40 pointer-events-none">
-                <div className="text-center">
-                  <Eye className="w-16 h-16 mx-auto mb-2 opacity-30" />
-                  <p className="text-sm">Изображение производственной зоны</p>
-                  <p className="text-xs mt-1">IMG-04_hazard-scene_16x9.png (1600×900)</p>
-                </div>
-              </div>
 
               {/* Hotspots */}
               {hotspotsToRender.map((spot) => {
@@ -280,7 +272,7 @@ export default function HazardSpotting({ data }: HazardSpottingProps) {
                     onMouseDown={(e) => handleMouseDown(e, spot.id)}
                     className={cn(
                       'absolute transform -translate-x-1/2 -translate-y-1/2',
-                      'w-10 h-10 rounded-full',
+                      'w-12 h-12 rounded-full',
                       'flex items-center justify-center',
                       'transition-all duration-200',
                       'focus:outline-none focus:ring-4 focus:ring-brand-wine/30',
@@ -290,8 +282,8 @@ export default function HazardSpotting({ data }: HazardSpottingProps) {
                             isDragging && 'scale-125 shadow-lg z-50'
                           )
                         : isFound
-                          ? 'bg-brand-forest/80 border-2 border-white scale-110'
-                          : 'bg-brand-wine/60 border-2 border-white/50 hover:bg-brand-wine hover:scale-110 animate-pulse'
+                          ? 'bg-brand-forest/80 border-2 border-white'
+                          : 'bg-transparent cursor-pointer'
                     )}
                     style={{
                       left: `${spot.x * 100}%`,
@@ -303,9 +295,7 @@ export default function HazardSpotting({ data }: HazardSpottingProps) {
                       <Move className="w-4 h-4 text-white" />
                     ) : isFound ? (
                       <CheckCircle2 className="w-5 h-5 text-white" />
-                    ) : (
-                      <span className="text-white font-bold">?</span>
-                    )}
+                    ) : null}
                   </button>
                 )
               })}

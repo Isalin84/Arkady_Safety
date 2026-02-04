@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { playClick, playHint } from '@/utils/sound'
+import { markExploreOpened } from '@/utils/storage'
 
 interface Risk {
   id: string
@@ -26,6 +27,8 @@ export default function RiskAccordion({ data }: RiskAccordionProps) {
       } else {
         next.add(id)
         playHint()
+        // Track opened risk for scoring
+        markExploreOpened('risks', id)
       }
       return next
     })

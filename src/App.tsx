@@ -8,6 +8,7 @@ import Checklist from './components/Checklist'
 import Quiz from './components/Quiz'
 import HazardSpotting from './components/HazardSpotting'
 import WinterModule from './components/WinterModule'
+import ResultsCertificate from './components/ResultsCertificate'
 import FooterCTA from './components/FooterCTA'
 import MuteToggle from './components/MuteToggle'
 import ResetProgress from './components/ResetProgress'
@@ -52,7 +53,10 @@ function App() {
         {/* B8: Зимний модуль */}
         <WinterModule data={content.safe_start_states} />
 
-        {/* B9: Финальный CTA */}
+        {/* B9: Результаты и сертификат */}
+        <ResultsCertificate />
+
+        {/* B10: Финальный CTA */}
         <FooterCTA />
       </main>
     </div>

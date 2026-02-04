@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { playClick } from '@/utils/sound'
+import { markExploreOpened } from '@/utils/storage'
 
 interface Habit {
   id: string
@@ -13,6 +14,7 @@ interface Habit {
 interface ArkadyTipsProps {
   data: {
     intro: string
+    videoUrl?: string
     habits: Habit[]
   }
 }
@@ -22,7 +24,12 @@ export default function ArkadyTips({ data }: ArkadyTipsProps) {
 
   const toggle = (id: string) => {
     playClick()
-    setOpenId(openId === id ? null : id)
+    const wasOpen = openId === id
+    setOpenId(wasOpen ? null : id)
+    // Track opened habit for scoring (only when opening, not closing)
+    if (!wasOpen) {
+      markExploreOpened('arkadyHabits', id)
+    }
   }
 
   return (
@@ -30,11 +37,30 @@ export default function ArkadyTips({ data }: ArkadyTipsProps) {
       <div className="container mx-auto px-4">
         <h2 className="section-title text-center">Советы Аркадия</h2>
         <p className="section-subtitle text-center max-w-2xl mx-auto">
-          Полезные привычки Safe Start от опытного руководителя смены
+          Узнай, как избежать спотыканий, поскальзываний и падений от руководителя смены Аркадия
+          Петровича.
         </p>
 
+        {/* Video */}
+        <div className="max-w-4xl mx-auto mt-8">
+          <div className="relative w-full pt-[56.25%] rounded-brand overflow-hidden bg-brand-gray/40">
+            <iframe
+              title="Советы Аркадия — видео"
+              src={data.videoUrl ?? 'https://kinescope.io/embed/o8nAFUZH6p5xw2AWELp3QG'}
+              allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+              allowFullScreen
+              frameBorder={0}
+              className="absolute inset-0 w-full h-full"
+            />
+          </div>
+        </div>
+
+        <h3 className="font-heading text-2xl md:text-3xl text-brand-wine-dark text-center mt-10 mb-6">
+          Проверь свои привычки
+        </h3>
+
         {/* Habits grid / accordion */}
-        <div className="max-w-3xl mx-auto space-y-4 mt-8">
+        <div className="max-w-3xl mx-auto space-y-4">
           {data.habits.map((habit) => {
             const isOpen = openId === habit.id
             

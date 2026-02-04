@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { cn } from '@/utils/cn'
 import { playClick } from '@/utils/sound'
+import { markExploreOpened } from '@/utils/storage'
 
 interface Control {
   id: string
@@ -33,7 +34,12 @@ export default function ControlHierarchy({ data }: ControlHierarchyProps) {
 
   const handleReveal = (id: string) => {
     playClick()
-    setRevealedId(revealedId === id ? null : id)
+    const wasRevealed = revealedId === id
+    setRevealedId(wasRevealed ? null : id)
+    // Track opened control for scoring (only when opening)
+    if (!wasRevealed) {
+      markExploreOpened('controls', id)
+    }
   }
 
   return (

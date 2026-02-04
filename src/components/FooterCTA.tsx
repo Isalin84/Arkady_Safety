@@ -51,7 +51,7 @@ export default function FooterCTA() {
             Месячник по производственной безопасности • Февраль 2026
           </p>
           <p className="text-brand-peach/40 text-xs mt-2">
-            Напитки вместе • 11 пивоварен
+            Спотыкания, поскальзывания и падения
           </p>
         </div>
       </div>
