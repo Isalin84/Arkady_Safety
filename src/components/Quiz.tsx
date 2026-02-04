@@ -3,6 +3,7 @@ import { ChevronRight, RotateCcw, CheckCircle2, XCircle } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { playClick, playSuccess, playError } from '@/utils/sound'
 import { getQuizState, setQuizState, type QuizState } from '@/utils/storage'
+import { CountUp, ScrollReveal } from './ui'
 
 interface QuizOption {
   id: string
@@ -144,7 +145,7 @@ export default function Quiz({ data }: QuizProps) {
               <h2 className="section-title">Квиз завершён!</h2>
               
               <p className="text-4xl font-heading text-brand-wine-dark mb-4">
-                {score}%
+                <CountUp from={0} to={score} duration={1.2} />%
               </p>
               
               <p className="text-brand-charcoal/80 mb-6">
@@ -189,10 +190,12 @@ export default function Quiz({ data }: QuizProps) {
   return (
     <section id="quiz-section" className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="section-title text-center">Мини-квиз</h2>
-        <p className="section-subtitle text-center max-w-2xl mx-auto">
-          Проверьте свои знания — 8 вопросов, ~2 минуты
-        </p>
+        <ScrollReveal>
+          <h2 className="section-title text-center">Мини-квиз</h2>
+          <p className="section-subtitle text-center max-w-2xl mx-auto">
+            Проверьте свои знания — 8 вопросов, ~2 минуты
+          </p>
+        </ScrollReveal>
 
         <div className="max-w-2xl mx-auto mt-8">
           {/* Progress */}

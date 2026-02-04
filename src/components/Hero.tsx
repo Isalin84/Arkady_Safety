@@ -1,5 +1,7 @@
 import { cn } from '@/utils/cn'
 import { playClick } from '@/utils/sound'
+import { useIsMobile, useReducedMotion } from '@/utils/isMobile'
+import { Aurora, SplitText, Magnet } from './ui'
 
 // TODO: Заменить на локальный файл после скачивания
 // Промпт для генерации аватара Аркадия:
@@ -18,6 +20,10 @@ interface HeroProps {
 }
 
 export default function Hero({ data, arkadyIntro }: HeroProps) {
+  const isMobile = useIsMobile()
+  const prefersReducedMotion = useReducedMotion()
+  const shouldAnimate = !isMobile && !prefersReducedMotion
+
   const scrollTo = (id: string) => {
     playClick()
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -25,8 +31,22 @@ export default function Hero({ data, arkadyIntro }: HeroProps) {
 
   return (
     <section className="relative min-h-screen flex items-center bg-gradient-to-b from-brand-cream to-brand-peach/30 overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute inset-0 opacity-10">
+      {/* Animated Aurora background - only on desktop */}
+      {shouldAnimate && (
+        <Aurora
+          colorStops={["#9D3339", "#F4E5CB", "#A5D7AB"]}
+          speed={0.3}
+          blend={0.15}
+          amplitude={0.8}
+          className="opacity-60"
+        />
+      )}
+      
+      {/* Static decorative background for mobile */}
+      <div className={cn(
+        "absolute inset-0",
+        shouldAnimate ? "opacity-5" : "opacity-10"
+      )}>
         <div className="absolute top-20 left-10 w-32 h-32 bg-brand-mint rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-brand-sky rounded-full blur-3xl" />
       </div>
@@ -78,29 +98,65 @@ export default function Hero({ data, arkadyIntro }: HeroProps) {
 
           {/* Content */}
           <div className="flex-1 text-center lg:text-left order-2 lg:order-1">
-            <h1 className="section-title text-4xl md:text-5xl lg:text-6xl text-brand-wine-dark mb-4 leading-tight">
-              {data.title}
-            </h1>
+            {shouldAnimate ? (
+              <SplitText
+                text={data.title}
+                tag="h1"
+                className="section-title text-4xl md:text-5xl lg:text-6xl text-brand-wine-dark mb-4 leading-tight"
+                splitType="words"
+                delay={80}
+                duration={0.6}
+                textAlign="left"
+              />
+            ) : (
+              <h1 className="section-title text-4xl md:text-5xl lg:text-6xl text-brand-wine-dark mb-4 leading-tight">
+                {data.title}
+              </h1>
+            )}
             
             <p className="section-subtitle text-xl md:text-2xl text-brand-charcoal/80 mb-8 max-w-2xl">
               {data.subtitle}
             </p>
 
-            {/* CTAs */}
+            {/* CTAs with Magnet effect on desktop */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button
-                onClick={() => scrollTo('checklist-section')}
-                className="btn-primary text-lg px-8 py-4"
-              >
-                {data.cta_primary}
-              </button>
-              
-              <button
-                onClick={() => scrollTo('quiz-section')}
-                className="btn-secondary text-lg px-8 py-4"
-              >
-                {data.cta_secondary}
-              </button>
+              {shouldAnimate ? (
+                <>
+                  <Magnet padding={60} magnetStrength={3}>
+                    <button
+                      onClick={() => scrollTo('checklist-section')}
+                      className="btn-primary text-lg px-8 py-4"
+                    >
+                      {data.cta_primary}
+                    </button>
+                  </Magnet>
+                  
+                  <Magnet padding={60} magnetStrength={3}>
+                    <button
+                      onClick={() => scrollTo('quiz-section')}
+                      className="btn-secondary text-lg px-8 py-4"
+                    >
+                      {data.cta_secondary}
+                    </button>
+                  </Magnet>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => scrollTo('checklist-section')}
+                    className="btn-primary text-lg px-8 py-4"
+                  >
+                    {data.cta_primary}
+                  </button>
+                  
+                  <button
+                    onClick={() => scrollTo('quiz-section')}
+                    className="btn-secondary text-lg px-8 py-4"
+                  >
+                    {data.cta_secondary}
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>

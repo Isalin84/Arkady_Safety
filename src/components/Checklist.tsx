@@ -8,6 +8,7 @@ import {
   type ChecklistState 
 } from '@/utils/storage'
 import content from '@/data/content.json'
+import { ScrollReveal } from './ui'
 
 interface ChecklistItem {
   id: string
@@ -138,10 +139,12 @@ export default function Checklist({ data }: ChecklistProps) {
   return (
     <section id="checklist-section" className="py-16 md:py-24 bg-brand-cream">
       <div className="container mx-auto px-4">
-        <h2 className="section-title text-center">1‑минутная проверка</h2>
-        <p className="section-subtitle text-center max-w-2xl mx-auto">
-          Отметьте пункты, которые вы выполняете перед выходом
-        </p>
+        <ScrollReveal>
+          <h2 className="section-title text-center">1‑минутная проверка</h2>
+          <p className="section-subtitle text-center max-w-2xl mx-auto">
+            Отметьте пункты, которые вы выполняете перед выходом
+          </p>
+        </ScrollReveal>
 
         <div className="max-w-2xl mx-auto mt-8">
           {/* Progress bar */}

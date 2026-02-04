@@ -3,6 +3,7 @@ import { Eye, CheckCircle2, HelpCircle, X, Move, Copy, Check } from 'lucide-reac
 import { cn } from '@/utils/cn'
 import { playClick, playSuccess, playHint } from '@/utils/sound'
 import { getHazardState, setHazardState, type HazardState } from '@/utils/storage'
+import { ScrollReveal } from './ui'
 
 interface Hotspot {
   id: string
@@ -182,10 +183,12 @@ export default function HazardSpotting({ data }: HazardSpottingProps) {
   return (
     <section id="hazard-section" className="py-16 md:py-24 bg-brand-cream">
       <div className="container mx-auto px-4">
-        <h2 className="section-title text-center">Найди опасности</h2>
-        <p className="section-subtitle text-center max-w-2xl mx-auto">
-          Кликните на все потенциальные риски на картинке
-        </p>
+        <ScrollReveal>
+          <h2 className="section-title text-center">Найди опасности</h2>
+          <p className="section-subtitle text-center max-w-2xl mx-auto">
+            Кликните на все потенциальные риски на картинке
+          </p>
+        </ScrollReveal>
 
         <div className="max-w-4xl mx-auto mt-8">
           {/* Progress */}

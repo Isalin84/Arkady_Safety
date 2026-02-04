@@ -3,6 +3,7 @@ import { Award, Download, X, Trophy } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { playClick, playSuccess } from '@/utils/sound'
 import { calculateScore, type ScoreResult } from '@/utils/scoring'
+import { CountUp, GradientText, ScrollReveal } from './ui'
 
 // Certificate dimensions
 const CERT_WIDTH = 1600
@@ -203,15 +204,17 @@ export default function ResultsCertificate() {
       {/* Trigger Section */}
       <section id="results-section" className="py-16 md:py-24 bg-brand-mint/30">
         <div className="container mx-auto px-4 text-center">
-          <Trophy className="w-16 h-16 mx-auto mb-4 text-brand-wine" />
-          <h2 className="section-title">Готовы узнать свой результат?</h2>
-          <p className="section-subtitle max-w-2xl mx-auto mb-8">
-            Пройдите все активности и получите персональный сертификат с вашим званием
-          </p>
-          <button onClick={openModal} className="btn-primary text-lg px-8 py-4">
-            <Award className="w-6 h-6 mr-2" />
-            Узнать результат
-          </button>
+          <ScrollReveal>
+            <Trophy className="w-16 h-16 mx-auto mb-4 text-brand-wine" />
+            <h2 className="section-title">Готовы узнать свой результат?</h2>
+            <p className="section-subtitle max-w-2xl mx-auto mb-8">
+              Пройдите все активности и получите персональный сертификат с вашим званием
+            </p>
+            <button onClick={openModal} className="btn-primary text-lg px-8 py-4">
+              <Award className="w-6 h-6 mr-2" />
+              Узнать результат
+            </button>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -235,7 +238,7 @@ export default function ResultsCertificate() {
                   Ваш результат
                 </h3>
                 <p className="text-brand-charcoal/70">
-                  {score.earnedPoints} из {score.maxPoints} баллов ({score.percent}%)
+                  <CountUp from={0} to={score.earnedPoints} duration={1} /> из {score.maxPoints} баллов (<CountUp from={0} to={score.percent} duration={1.2} />%)
                 </p>
               </div>
               <button
@@ -261,9 +264,19 @@ export default function ResultsCertificate() {
                 score.percent >= 50 ? 'text-brand-teal' :
                 'text-brand-terracotta'
               )} />
-              <p className="font-heading text-3xl text-brand-wine-dark">
+              <GradientText
+                colors={
+                  score.percent >= 100 
+                    ? ["#D97706", "#F59E0B", "#D97706"] 
+                    : score.percent >= 80
+                    ? ["#1E4B2E", "#194245", "#1E4B2E"]
+                    : ["#9D3339", "#450D1B", "#9D3339"]
+                }
+                animationSpeed={4}
+                className="font-heading text-3xl"
+              >
                 {score.rankTitle}
-              </p>
+              </GradientText>
             </div>
 
             {/* Score breakdown */}

@@ -3,6 +3,7 @@ import { ChevronDown } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { playClick } from '@/utils/sound'
 import { markExploreOpened } from '@/utils/storage'
+import { ScrollReveal } from './ui'
 
 interface Habit {
   id: string
@@ -35,18 +36,21 @@ export default function ArkadyTips({ data }: ArkadyTipsProps) {
   return (
     <section id="arkady-tips" className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="section-title text-center">Советы Аркадия</h2>
-        <p className="section-subtitle text-center max-w-2xl mx-auto">
-          Узнай, как избежать спотыканий, поскальзываний и падений от руководителя смены Аркадия
-          Петровича.
-        </p>
+        <ScrollReveal>
+          <h2 className="section-title text-center">Советы Аркадия</h2>
+          <p className="section-subtitle text-center max-w-2xl mx-auto">
+            Узнай, как избежать спотыканий, поскальзываний и падений от руководителя смены Аркадия
+            Петровича.
+          </p>
+        </ScrollReveal>
 
         {/* Video */}
-        <div className="max-w-4xl mx-auto mt-8">
+        <ScrollReveal delay={0.2}>
+          <div className="max-w-4xl mx-auto mt-8">
           <div className="relative w-full pt-[56.25%] rounded-brand overflow-hidden bg-brand-gray/40">
             <iframe
               title="Советы Аркадия — видео"
-              src={data.videoUrl ?? 'https://kinescope.io/embed/o8nAFUZH6p5xw2AWELp3QG'}
+              src={data.videoUrl ?? 'https://kinescope.io/embed/a6GLp8GSYG6xib3brXvGAM'}
               allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
               allowFullScreen
               frameBorder={0}
@@ -54,10 +58,13 @@ export default function ArkadyTips({ data }: ArkadyTipsProps) {
             />
           </div>
         </div>
+        </ScrollReveal>
 
-        <h3 className="font-heading text-2xl md:text-3xl text-brand-wine-dark text-center mt-10 mb-6">
-          Проверь свои привычки
-        </h3>
+        <ScrollReveal delay={0.3}>
+          <h3 className="font-heading text-2xl md:text-3xl text-brand-wine-dark text-center mt-10 mb-6">
+            Проверь свои привычки
+          </h3>
+        </ScrollReveal>
 
         {/* Habits grid / accordion */}
         <div className="max-w-3xl mx-auto space-y-4">

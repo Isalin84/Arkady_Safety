@@ -3,6 +3,7 @@ import { cn } from '@/utils/cn'
 import { playClick } from '@/utils/sound'
 import { getSeasonState, setSeasonState, markExploreOpened, markExploreSeasonSelected, type Season } from '@/utils/storage'
 import content from '@/data/content.json'
+import { ScrollReveal } from './ui'
 
 interface SafeStartState {
   id: string
@@ -58,10 +59,12 @@ export default function WinterModule({ data }: WinterModuleProps) {
   return (
     <section id="winter-section" className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="section-title text-center">Зима и входные зоны</h2>
-        <p className="section-subtitle text-center max-w-2xl mx-auto">
-          Выберите погодные условия и получите актуальные советы
-        </p>
+        <ScrollReveal>
+          <h2 className="section-title text-center">Зима и входные зоны</h2>
+          <p className="section-subtitle text-center max-w-2xl mx-auto">
+            Выберите погодные условия и получите актуальные советы
+          </p>
+        </ScrollReveal>
 
         <div className="max-w-4xl mx-auto mt-8">
           {/* Season toggle */}
