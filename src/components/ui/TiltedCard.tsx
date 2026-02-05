@@ -73,7 +73,7 @@ export default function TiltedCard({
       : `transform ${transitionSpeed}ms ease-out`,
     transformStyle: "preserve-3d",
     position: "relative",
-    overflow: "hidden",
+    overflow: "visible",
   };
 
   const glareStyle: CSSProperties = {
@@ -99,8 +99,8 @@ export default function TiltedCard({
       onMouseLeave={handleMouseLeave}
     >
       <div style={innerStyle}>
-        {children}
         {glare && <div style={glareStyle} />}
+        {children}
       </div>
     </div>
   );
